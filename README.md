@@ -7,6 +7,8 @@ In this lab, you will learn how to:
 - Build a batch Extract-Transform-Load (ETL) pipeline in Apache Beam that processes raw Google Fit health data from Google Cloud Storage and writes it to Google BigQuery.
 - Run the Apache Beam pipeline on Cloud Dataflow.
 
+![overview](https://github.com/harunawaizumi/health-lab/blob/main/images/drawing.png)
+
 ### Advantages of Dataflow
 
 Cloud Dataflow is a Google Cloud service that provides scalable stream and batch data processing. Use Dataflow to create data pipelines that read from one or more sources, transform the data, and write the data to a destination.
@@ -225,10 +227,11 @@ Final code is in temperature.py
 
 ### Run a pipeline
 
-Return to the terminal, execute the command to the pipeline locally to test the code
+Return to the terminal, execute the command to the pipeline locally to test the code with the DirectRunner.
+The sandbox environment is useful for debugging and testing code.
 
 ```
-python3 temperature.py   --project=${PROJECT_ID}   --region=us-central1  --runner=DataflowRunner
+python3 temperature.py   --project=${PROJECT_ID}   --region=us-central1  --runner=DirectRunner
 ```
 
 Dataset should be ready in bigQuery.
@@ -239,3 +242,6 @@ Run the pipeline using Google Cloud Dataflow. Change DirectRunner to DataflowRun
 ```
 python3 temperature.py   --project=${PROJECT_ID}   --region=us-central1  --runner=DataflowRunner
 ```
+
+You submitted a file to Dataflow service. You can see this data pipeline is executed on the Dataflow page.
+![Dataflow](https://github.com/harunawaizumi/health-lab/blob/main/images/health-lab-dataflow.png)

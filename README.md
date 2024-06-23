@@ -42,11 +42,11 @@ gcloud auth application-default login
 
 2. Save [Downloads/Takeout/Fit/All Data/raw_com.google.body.temperature_com.google.and.json] data to a bucket in Cloud Storage.
    ![Export files](https://github.com/harunawaizumi/health-lab/blob/main/images/health-lab-export.png)
-   ![Cloud Storage](https://github.com/harunawaizumi/health-lab/blob/main/images/health-lab-gcs.png)
 
 ### Create Dataset in BigQuery
 
 1. Create a health dataset with multi-region US.
+   ![Cloud Storage](https://github.com/harunawaizumi/health-lab/blob/main/images/health-lab-gcs.png)
 
 ### Write and ETL pipeline from scratch
 
@@ -245,3 +245,5 @@ python3 temperature.py   --project=${PROJECT_ID}   --region=us-central1  --runne
 
 You submitted a file to Dataflow service. You can see this data pipeline is executed on the Dataflow page.
 ![Dataflow](https://github.com/harunawaizumi/health-lab/blob/main/images/health-lab-dataflow.png)
+
+You can visualize data using Looker.

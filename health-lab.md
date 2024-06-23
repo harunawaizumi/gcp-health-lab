@@ -1,4 +1,4 @@
-## Google Fit Health Data Processing with Dataflow and Visualization
+## Google Fit Health Data Processing with Dataflow in Python
 
 ### Overview
 
@@ -25,9 +25,9 @@ The data used in this lab is not considered big data. This lab is designed for p
    Replace `{project-number}` with your project number.
    For **Role**, select **Project (or Basic) > Editor**. Click **Save**.
 
-   ![IAM](https://github.com/harunawaizumi/health-lab/blob/main/images/health-lab-IAM.png)
+   ![IAM](https://github.com/harunawaizumi/health-lab/blob/main/images/health-lab-IAM.png?raw=true)
 
-3) Set up ADC as described in https://cloud.google.com/docs/authentication/provide-credentials-adc?hl=ja#how-to
+3) Set up ADC as [described](https://cloud.google.com/docs/authentication/provide-credentials-adc?hl=ja#how-to)
 
 ```
 gcloud auth application-default login

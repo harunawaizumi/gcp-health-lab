@@ -1,33 +1,33 @@
-## Google Fit Health Data Processing with Dataflow and Visualization
+## Google Fit Health Data Processing with Dataflow in Python
 
 ### Overview
 
-In this lab, I'm going to learn how to:
+In this lab, you will learn how to:
 
-- Build a batch Extract-Transform-Load pipeline in Apache Beam, which takes raw data from Google Fit health data from Google Cloud Storage and writes it to Google BigQuery.
-- Run the Apache Beam Pipeline on Cloud Dataflow.
+- Build a batch Extract-Transform-Load (ETL) pipeline in Apache Beam that processes raw Google Fit health data from Google Cloud Storage and writes it to Google BigQuery.
+- Run the Apache Beam pipeline on Cloud Dataflow.
 
 ### Advantages of Dataflow
 
-Cloud dataflow is a Google Cloud service that provides stream and batch data processing at scale. Use Dataflow to create data pipelines that read from one or more sources, transform the data, and write the data to a destination.
+Cloud Dataflow is a Google Cloud service that provides scalable stream and batch data processing. Use Dataflow to create data pipelines that read from one or more sources, transform the data, and write the data to a destination.
 
-- Fully-managed: when you run a Dataflowjob, the Dataflow allocates a pool of worker VMs to execute the pipeline. Auto-scaling.
-- Portable: It's written in Java, Python and Go. You can run the code on Apache Flink or Apache Spark without rewriting the code.
+- **Fully-managed**: When you run a Dataflow job, Dataflow allocates a pool of worker VMs to execute the pipeline, with auto-scaling capabilities.
+- **Portable**: Written in Java, Python, and Go, Dataflow code can run on Apache Flink or Apache Spark without modification.
 
-The data I'm going to use for this lab is not big data.
-I'm going to use dataflow and bigQuery for practice and integrate health big data to the system in the future.
+The data used in this lab is not considered big data. This lab is designed for practice, with the goal of integrating health big data into the system in the future.
 
-### Setup and requirements
+### Setup and Requirements
 
-1. In the Google Cloud console, on the Navigation menu (Navigation menu icon), select IAM & Admin > IAM.
+1. In the Google Cloud console, navigate to **IAM & Admin > IAM**.
 
-2. At the top of the roles table, below View by Principals, click Grant Access.
-   For New principals, type: {project-number}-compute@developer.gserviceaccount.com
-   Replace {project-number} with your project number.
-   For Role, select Project (or Basic) > Editor. Click Save.
-   [IAM](./images/health-lab-IAM.png)
+2. At the top of the roles table, below **View by Principals**, click **Grant Access**.
+   For **New principals**, type: `{project-number}-compute@developer.gserviceaccount.com`
+   Replace `{project-number}` with your project number.
+   For **Role**, select **Project (or Basic) > Editor**. Click **Save**.
 
-3. Set up ADC as described in https://cloud.google.com/docs/authentication/provide-credentials-adc?hl=ja#how-to
+   ![IAM](https://github.com/harunawaizumi/health-lab/blob/main/images/health-lab-IAM.png)
+
+3) Set up ADC as [described](https://cloud.google.com/docs/authentication/provide-credentials-adc?hl=ja#how-to)
 
 ```
 gcloud auth application-default login
@@ -36,11 +36,11 @@ gcloud auth application-default login
 ### Save Json data to Cloud Storage
 
 1. Log into your Google Account. Go to the Google Takeout page. Select Fit to export data.
-   [Takeout](./images/health-lab-takeout.png)
+   ![Takeout](https://github.com/harunawaizumi/health-lab/blob/main/images/health-lab-takeout.png)
 
 2. Save [Downloads/Takeout/Fit/All Data/raw_com.google.body.temperature_com.google.and.json] data to a bucket in Cloud Storage.
-   [Export files](./images/health-lab-export.png)
-   [Cloud Storage](./images/health-lab-gcs.png)
+   ![Export files](https://github.com/harunawaizumi/health-lab/blob/main/images/health-lab-export.png)
+   ![Cloud Storage](https://github.com/harunawaizumi/health-lab/blob/main/images/health-lab-gcs.png)
 
 ### Create Dataset in BigQuery
 
@@ -148,14 +148,13 @@ from apache_beam.runners import DataflowRunner, DirectRunner
 
 ### Write to a sink
 
-There are 4P in Apache Beam data pipeline.
+There are four key components in an Apache Beam data pipeline:
 
-- PCollection: immutable dataset. It's the input and output of each step of the pipeline.
-- PTransform: operations to transform data
-- Pipeline: define one job, what to do, how to transform, and how to write.
-- Pipeline Runner: backend to process this job.
-
-The code below creates an initial input as PCollection. Read a Fit data from Google Clous Storage. "ParseJson" transforms the data and return an output PCollection. WriteToBQ get the PCollection to save it to BigQuery.
+- PCollection: An immutable dataset that serves as the input and output of each step in the pipeline.
+- PTransform: Operations that transform the data.
+- Pipeline: Defines the job, including what to do, how to transform the data, and how to write the results.
+- Pipeline Runner: The backend that processes the job.
+  The code below creates an initial input as a PCollection, reads Fit data from Google Cloud Storage, uses ParseJson to transform the data, and writes the output PCollection to BigQuery:
 
 ```
     (p
@@ -233,7 +232,7 @@ python3 temperature.py   --project=${PROJECT_ID}   --region=us-central1  --runne
 ```
 
 Dataset should be ready in bigQuery.
-[Dataset](./images/health-lab-dataset.png)
+![Dataset](https://github.com/harunawaizumi/health-lab/blob/main/images/health-lab-dataset.png)
 
 Run the pipeline using Google Cloud Dataflow. Change DirectRunner to DataflowRunner
 
